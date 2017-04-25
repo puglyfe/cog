@@ -8,7 +8,7 @@
 module.exports = function (gulp, plugins, options) {
   'use strict';
 
-  gulp.task('watch', ['watch:sass', 'watch:styleguide', 'watch:js']);
+  gulp.task('watch', ['watch:sass', 'watch:styleguide', 'watch:js', 'watch:twig']);
 
   gulp.task('watch:js', function () {
     return gulp.watch([
@@ -29,6 +29,17 @@ module.exports = function (gulp, plugins, options) {
       plugins.runSequence(
         'compile:sass',
         'minify:css',
+        'browser-sync:reload'
+      );
+    });
+  });
+
+  gulp.task('watch:twig', function () {
+    return gulp.watch([
+      options.twig.files
+    ], function () {
+      plugins.runSequence(
+        'drush:cache-rebuild',
         'browser-sync:reload'
       );
     });

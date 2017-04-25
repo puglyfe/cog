@@ -94,7 +94,8 @@ var paths = {
     destination: 'js/dist'
   },
   images: 'img/',
-  styleGuide: 'styleguide'
+  styleGuide: 'styleguide',
+  templates: 'templates/'
 };
 
 // These are passed to each task.
@@ -135,6 +136,11 @@ var options = {
     destination: path.join(paths.scripts.destination)
   },
 
+  // ----- Twig ----- //
+  twig: {
+    files: paths.templates + '**/*.twig'
+  },
+
   // ----- Images ----- //
   images: {
     files: paths.images + '**/*.{png,gif,jpg,svg}',
@@ -153,7 +159,13 @@ var options = {
         'gulp-tasks/**/*'
       ]
     }
+  },
 
+  // ----- Drush ----- //
+  // add your local drush alias here to enable the gulp watch:twig task
+  // to automatically run a drush cache-rebuild.
+  drush: {
+    // alias: '@local.example.com'
   },
 
   // ----- KSS Node ----- //
@@ -184,6 +196,7 @@ require('./gulp-tasks/compile-sass')(gulp, plugins, options);
 require('./gulp-tasks/compile-js')(gulp, plugins, options);
 require('./gulp-tasks/compile-styleguide')(gulp, plugins, options);
 require('./gulp-tasks/default')(gulp, plugins, options);
+require('./gulp-tasks/drush')(gulp, plugins, options);
 require('./gulp-tasks/lint-js')(gulp, plugins, options);
 require('./gulp-tasks/lint-css')(gulp, plugins, options);
 require('./gulp-tasks/minify-css')(gulp, plugins, options);
