@@ -1,6 +1,6 @@
 /**
  * @file
- * Task: Watch.
+ * Task: Drush.
  */
 
 /* global module */
